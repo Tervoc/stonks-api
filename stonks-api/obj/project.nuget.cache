@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JZhBkqio7kvb7Usbndj5Tc9h1ne9Uj2jGv0aGzrp5u9FWEqpYj7SzUlLqBNdJkb1MhxIYQHaDmUAdAICasVqpw==",
+  "dgSpecHash": "Z4bX+x01lMw/NnmtIcp5fUzmaFCTZDqWcpxW7BDiGCZiCSHqZV/fQGvso2VNXcFfq0WVKkxYeyGwxb9SsZ973w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\maxam\\source\\repos\\stonks-api\\stonks-api\\stonks-api.csproj",
+  "projectFilePath": "C:\\Users\\maxam\\Documents\\GithubStuff\\stonks-api\\stonks-api\\stonks-api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\maxam\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\5.0.3\\microsoft.aspnetcore.jsonpatch.5.0.3.nupkg.sha512",
     "C:\\Users\\maxam\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\3.1.11\\microsoft.aspnetcore.mvc.newtonsoftjson.3.1.11.nupkg.sha512",

@@ -1355,11 +1355,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\maxam\\source\\repos\\stonks-api\\stonks-api\\stonks-api.csproj",
+      "projectUniqueName": "C:\\Users\\maxam\\Documents\\GithubStuff\\stonks-api\\stonks-api\\stonks-api.csproj",
       "projectName": "stonks-api",
-      "projectPath": "C:\\Users\\maxam\\source\\repos\\stonks-api\\stonks-api\\stonks-api.csproj",
+      "projectPath": "C:\\Users\\maxam\\Documents\\GithubStuff\\stonks-api\\stonks-api\\stonks-api.csproj",
       "packagesPath": "C:\\Users\\maxam\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\maxam\\source\\repos\\stonks-api\\stonks-api\\obj\\",
+      "outputPath": "C:\\Users\\maxam\\Documents\\GithubStuff\\stonks-api\\stonks-api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\maxam\\AppData\\Roaming\\NuGet\\NuGet.Config",

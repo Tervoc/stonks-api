@@ -14,16 +14,15 @@ namespace stonks_api
         public static void Main(string[] args)
         {
             var host = new HostBuilder()
-                .ConfigureAppConfiguration((hostContext, builder) =>
-                {
+                .ConfigureAppConfiguration((hostContext, builder) => {
                     builder.AddJsonFile("appsettings.json");
-                }).ConfigureWebHostDefaults(webBuilder =>
-                {
+                }).ConfigureWebHostDefaults(webBuilder => {
                     webBuilder.UseStartup<Startup>();
                 })
                 .Build();
 
             host.Run();
+
         }
     }
 }
