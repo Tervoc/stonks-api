@@ -70,7 +70,7 @@ namespace stonks_api.Controllers
 
 				PasswordHasher hasher = new PasswordHasher();
 
-				SqlCommand command = new SqlCommand(@"INSERT INTO [User] (FirstName, LastName, PreferredName, Password, Email, StatusId) VALUES (@userName, @email, @password, @statusId);", conn);
+				SqlCommand command = new SqlCommand(@"INSERT INTO [User] (Username, Password, Email, StatusId) VALUES (@userName, @email, @password, @statusId);", conn);
 				command.Parameters.AddWithValue("@userName", user.Username);
 				command.Parameters.AddWithValue("@email", user.Email);
 				command.Parameters.AddWithValue("@password", hasher.Hash(user.Password));

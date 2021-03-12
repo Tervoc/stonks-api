@@ -23,7 +23,7 @@ namespace stonks_api.Models
 			[JsonProperty(PropertyName = "statusId")]
 			public int StatusId { get; }
 
-			public static readonly string[] UpdateNames = { "userName", "lastName", "preferredName", "password", "email", "statusId" };
+			public static readonly string[] UpdateNames = { "userName", "password", "email", "statusId" };
 
 			public User(int userId, string userName, string password, string email, int statusId)
 			{
