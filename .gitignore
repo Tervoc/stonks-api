@@ -3,4 +3,6 @@ stonks-api/appsettings.Development.json
 
 stonks-api/appsettings.json
 
-stonks-api/bin
+stonks-api/stonks-api/bin
+stonks-api/stonks-api/obj
+stonks-api/.vs
