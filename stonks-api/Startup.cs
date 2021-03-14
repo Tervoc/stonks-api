@@ -59,10 +59,10 @@ namespace stonks_api
 				app.UseDeveloperExceptionPage();
 			}
 
-			ConnectionString = Configuration.GetConnectionString("RoomeeConnStr");
+			ConnectionString = Configuration.GetConnectionString("StonksConnStr");
 			JWTSecret = Configuration.GetValue<string>("JWTSecret");
 
-			app.UseCors("default"); //cross origin resource sharing is fucking stupid --rip(matt <3 )
+			app.UseCors("default");
 
 			app.UseHttpsRedirection();
 

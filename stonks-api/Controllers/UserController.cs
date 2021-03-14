@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Author(s): Parrish, Christian christian.parrish@ttu.edu
+ * Date Created: February something 2021
+ * Notes: N/A
+*/
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
@@ -19,7 +24,7 @@ namespace stonks_api.Controllers
 	[ApiController]
 	public class UserController : ControllerBase
 	{
-		[HttpGet]//post create patch update
+		[HttpGet]
 		public IActionResult GetUser([FromQuery][Required] string type, [FromQuery][Required] string identifier)
 		{
 			User user = null;
@@ -59,7 +64,7 @@ namespace stonks_api.Controllers
 		[HttpPost]
 		public IActionResult CreateUser([FromBody][Required] User user)
 		{
-			if (user.Email == string.Empty || user.Email == null || user.Password == string.Empty || user.Password == null)
+			if (user.Username == string.Empty || user.Username == null || user.Email == string.Empty || user.Email == null || user.Password == string.Empty || user.Password == null)
 			{
 				return Problem("could not process");
 			}
@@ -70,8 +75,8 @@ namespace stonks_api.Controllers
 
 				PasswordHasher hasher = new PasswordHasher();
 
-				SqlCommand command = new SqlCommand(@"INSERT INTO [User] (Username, Password, Email, StatusId) VALUES (@userName, @email, @password, @statusId);", conn);
-				command.Parameters.AddWithValue("@userName", user.Username);
+				SqlCommand command = new SqlCommand(@"INSERT INTO [User] (Username, Email, Password, StatusId) VALUES (@username, @email, @password, @statusId);", conn);
+				command.Parameters.AddWithValue("@username", user.Username);
 				command.Parameters.AddWithValue("@email", user.Email);
 				command.Parameters.AddWithValue("@password", hasher.Hash(user.Password));
 				command.Parameters.AddWithValue("@statusId", 1);
