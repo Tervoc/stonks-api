@@ -6,3 +6,6 @@ stonks-api/appsettings.json
 stonks-api/stonks-api/bin
 stonks-api/stonks-api/obj
 stonks-api/.vs
+.vs/stonks-api/DesignTimeBuild/.dtbcache.v2
+
+.vs/stonks-api/v16/.suo
