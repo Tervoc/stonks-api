@@ -1,11 +1,10 @@
 
-stonks-api/appsettings.Development.json
+appsettings.Development.json
 
-stonks-api/appsettings.json
+appsettings.json
 
-stonks-api/stonks-api/bin
-stonks-api/stonks-api/obj
+stonks-api/bin
+stonks-api/obj
 stonks-api/.vs
-.vs/stonks-api/DesignTimeBuild/.dtbcache.v2
+.vs/
 
-.vs/stonks-api/v16/.suo
