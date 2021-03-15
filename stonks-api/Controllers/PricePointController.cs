@@ -101,7 +101,7 @@ namespace stonks_api.Controllers {
 
 
 		[HttpPatch("{id}")]
-		public IActionResult UpdateRoom([FromRoute] int id, [FromHeader][Required] string token, [FromBody] Dictionary<string, string> patch) {
+		public IActionResult UpdatePricePoint([FromRoute] int id, [FromHeader][Required] string token, [FromBody] Dictionary<string, string> patch) {
 			if (!Authentication.IsTokenValid(token)) {
 				return Problem("token is not valid");
 			}
