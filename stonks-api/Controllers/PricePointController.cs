@@ -49,7 +49,8 @@ namespace stonks_api.Controllers {
 			}
 		}
 
-		[HttpGet("{tickerId}")]
+		[HttpGet]
+		[Route("price/{tickerId}")]
 		public IActionResult GetTickerPriceOverTimespan([FromRoute][Required] int tickerId, [FromQuery][Required] int timespanId/*, [FromHeader][Required] string token*/) {
 			/*if (!Authentication.IsTokenValid(token)) {
 				return Problem("token is not valid");
@@ -59,7 +60,7 @@ namespace stonks_api.Controllers {
 
 			using (SqlConnection conn = new SqlConnection(Startup.ConnectionString)) {
 				conn.Open();
-
+				
 				SqlCommand command = new SqlCommand(@"SELECT * FROM [PricePoint] WHERE (TickerId = @tickerId) AND (TimespanId = @timespanId) ORDER BY Date ASC;", conn);
 				command.Parameters.AddWithValue("@tickerId", tickerId);
 				command.Parameters.AddWithValue("@timespanId", timespanId);
@@ -68,6 +69,8 @@ namespace stonks_api.Controllers {
 				using (SqlDataReader reader = command.ExecuteReader()) {
 					if (reader.HasRows) {
 						while (reader.Read()) {
+							DateTimeOffset tickTime = new DateTimeOffset(reader.GetDateTime(8).Ticks, new TimeSpan(-5, 0, 0));
+							//DateTime tickTimer = new DateTime(tickTime.ToUnixTimeSeconds());
 
 							PricePoint pricePoint = new PricePoint(
 								reader.GetInt32(0),
@@ -78,8 +81,10 @@ namespace stonks_api.Controllers {
 								reader.GetDouble(5),
 								reader.GetDouble(6),
 								reader.GetDouble(7),
-								reader.GetDateTime(8),
-								reader.GetInt32(9),
+								//reader.GetDateTime(8).ToString("yyyy-MM-dd"),// HH:mm:ss"),
+								tickTime.ToUnixTimeMilliseconds(),
+								//tickTime.ToString(),
+								reader.GetDouble(9),
 								reader.GetInt32(10)
 							);
 

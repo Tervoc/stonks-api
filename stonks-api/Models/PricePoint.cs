@@ -37,17 +37,17 @@ namespace stonks_api.Models {
 		public double High { get; }
 
 		[JsonProperty(PropertyName = "date")]
-		public DateTime Date { get; }
+		public long Date { get; }
 
 		[JsonProperty(PropertyName = "volume")]
-		public int Volume { get; }
+		public double Volume { get; }
 
 		[JsonProperty(PropertyName = "statusId")]
 		public int StatusId { get; set; }
 
 		public static readonly string[] UpdateNames = { "statusId" };
 
-		public PricePoint(int pricePointId, int tickerId, int timespanId, double volumeWeighted, double open, double close, double low, double high, DateTime date, int volume, int statusId) {
+		public PricePoint(int pricePointId, int tickerId, int timespanId, double volumeWeighted, double open, double close, double low, double high, long date, double volume, int statusId) {
 			PricePointId = pricePointId;
 			TimespanId = timespanId;
 			TickerId = tickerId;
@@ -71,6 +71,7 @@ namespace stonks_api.Models {
 				using (SqlDataReader reader = command.ExecuteReader()) {
 					if (reader.HasRows) {
 						reader.Read();
+						DateTimeOffset tickTime = new DateTimeOffset(reader.GetDateTime(8).Ticks, new TimeSpan(-5, 0, 0));
 
 						return new PricePoint(
 							reader.GetInt32(0),
@@ -81,8 +82,10 @@ namespace stonks_api.Models {
 							reader.GetDouble(5),
 							reader.GetDouble(6),
 							reader.GetDouble(7),
-							reader.GetDateTime(8),
-							reader.GetInt32(9),
+							//reader.GetDateTime(8).ToString("d"),
+							tickTime.ToUnixTimeMilliseconds(),
+							//tickTime.ToString(),
+							reader.GetDouble(9),
 							reader.GetInt32(10)
 						);
 					} else {
