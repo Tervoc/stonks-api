@@ -36,8 +36,8 @@ namespace stonks_api.Models {
 		[JsonProperty(PropertyName = "high")]
 		public double High { get; }
 
-		[JsonProperty(PropertyName = "date")]
-		public long Date { get; }
+		[JsonProperty(PropertyName = "closeTimestamp")]
+		public long CloseTimestamp { get; }
 
 		[JsonProperty(PropertyName = "volume")]
 		public double Volume { get; }
@@ -47,7 +47,7 @@ namespace stonks_api.Models {
 
 		public static readonly string[] UpdateNames = { "statusId" };
 
-		public PricePoint(int pricePointId, int tickerId, int timespanId, double volumeWeighted, double open, double close, double low, double high, long date, double volume, int statusId) {
+		public PricePoint(int pricePointId, int tickerId, int timespanId, double volumeWeighted, double open, double close, double low, double high, long closeTimestamp, double volume, int statusId) {
 			PricePointId = pricePointId;
 			TimespanId = timespanId;
 			TickerId = tickerId;
@@ -56,8 +56,8 @@ namespace stonks_api.Models {
 			Close = close;
 			Low = low;
 			High = high;
-			Date = date;
-			Volume = volume; 
+			CloseTimestamp = closeTimestamp;
+			Volume = volume;
 			StatusId = statusId;
 		}
 
