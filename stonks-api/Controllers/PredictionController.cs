@@ -1,6 +1,6 @@
 ﻿/*
  * Author(s): Parrish, Christian christian.parrish@ttu.edu
- * Date Created: March 09 2021
+ * Date Created: April 13 2021
  * Notes: N/A
 */
 using System;
@@ -19,9 +19,9 @@ using stonks_api.Models;
 using stonks_api.Utilities;
 
 namespace stonks_api.Controllers {
-	[Route("v1/pricePoint")]
+	[Route("v1/prediction")]
 	[ApiController]
-	public class PricePointController : ControllerBase {
+	public class PredictionController : ControllerBase {
 		[HttpGet]
 		public IActionResult GetPricePoint([FromQuery][Required] string type, [FromQuery][Required] string identifier/*, [FromHeader][Required] string token*/) {
 			/*if (!Authentication.IsTokenValid(token)) {
@@ -51,17 +51,17 @@ namespace stonks_api.Controllers {
 
 		[HttpGet]
 		[Route("price/{tickerId}")]
-		public IActionResult GetTickerPriceOverTimespan([FromRoute][Required] int tickerId, [FromQuery][Required] int timespanId/*, [FromHeader][Required] string token*/) {
+		public IActionResult GetTickerPredictionOverTimespan([FromRoute][Required] int tickerId, [FromQuery][Required] int timespanId/*, [FromHeader][Required] string token*/) {
 			/*if (!Authentication.IsTokenValid(token)) {
 				return Problem("token is not valid");
 			}*/
 
-			List<PricePoint> pricePoints = new List<PricePoint>();
+			List<Prediction> predictions = new List<Prediction>();
 
 			using (SqlConnection conn = new SqlConnection(Startup.ConnectionString)) {
 				conn.Open();
-				
-				SqlCommand command = new SqlCommand(@"SELECT * FROM [PricePoint] WHERE (TickerId = @tickerId) AND (TimespanId = @timespanId) ORDER BY CloseTimestamp ASC;", conn);
+
+				SqlCommand command = new SqlCommand(@"SELECT * FROM dbo.Predictions WHERE (TickerId = @tickerId) AND (TimespanId = @timespanId) ORDER BY CloseTimestamp ASC;", conn);
 				command.Parameters.AddWithValue("@tickerId", tickerId);
 				command.Parameters.AddWithValue("@timespanId", timespanId);
 
@@ -69,26 +69,20 @@ namespace stonks_api.Controllers {
 				using (SqlDataReader reader = command.ExecuteReader()) {
 					if (reader.HasRows) {
 						while (reader.Read()) {
-							DateTimeOffset tickTime = new DateTimeOffset(reader.GetDateTime(8).Ticks, new TimeSpan(-5, 0, 0));
+							DateTimeOffset tickTime = new DateTimeOffset(reader.GetDateTime(1).Ticks, new TimeSpan(-5, 0, 0));
 							//DateTime tickTimer = new DateTime(tickTime.ToUnixTimeSeconds());
 
-							PricePoint pricePoint = new PricePoint(
-								reader.GetInt32(0),
-								reader.GetInt32(1),
-								reader.GetInt32(2),
-								reader.GetDouble(3),
-								reader.GetDouble(4),
-								reader.GetDouble(5),
-								reader.GetDouble(6),
-								reader.GetDouble(7),
-								//reader.GetDateTime(8).ToString("yyyy-MM-dd"),// HH:mm:ss"),
-								tickTime.ToUnixTimeMilliseconds(),
-								//tickTime.ToString(),
-								reader.GetDouble(9),
-								reader.GetInt32(10)
-							);
+							Prediction p = new Prediction(
+							reader.GetInt32(0),
+							tickTime.ToUnixTimeMilliseconds(),
+							reader.GetInt32(2),
+							reader.GetInt32(3),
+							reader.GetInt32(4),
+							reader.GetDouble(5)
 
-							pricePoints.Add(pricePoint);
+						);
+
+							predictions.Add(p);
 						}
 					} else {
 						return Problem("Invalid ticker or timespan");
@@ -96,13 +90,13 @@ namespace stonks_api.Controllers {
 				}
 			}
 
-			if (pricePoints == null) {
+			if (predictions == null) {
 				return NotFound("no prices found");
 			} else {
-				return Ok(JsonConvert.SerializeObject(pricePoints, Formatting.Indented));
+				return Ok(JsonConvert.SerializeObject(predictions, Formatting.Indented));
 			}
 		}
-
+		/*
 		[HttpPatch("{id}")]
 		public IActionResult UpdatePricePoint([FromRoute] int id, [FromHeader][Required] string token, [FromBody] Dictionary<string, string> patch) {
 			if (!Authentication.IsTokenValid(token)) {
@@ -128,6 +122,6 @@ namespace stonks_api.Controllers {
 				}
 				return Ok();
 			}
-		}
+		}*/
 	}
 }
