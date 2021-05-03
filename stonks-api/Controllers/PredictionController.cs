@@ -61,9 +61,10 @@ namespace stonks_api.Controllers {
 			using (SqlConnection conn = new SqlConnection(Startup.ConnectionString)) {
 				conn.Open();
 
-				SqlCommand command = new SqlCommand(@"SELECT * FROM dbo.Predictions WHERE (TickerId = @tickerId) AND (TimespanId = @timespanId) ORDER BY CloseTimestamp ASC;", conn);
+				SqlCommand command = new SqlCommand(@"SELECT * FROM dbo.Predictions WHERE (TickerId = @tickerId) AND (TimespanId = @timespanId) AND (StatusId = @statusId) ORDER BY CloseTimestamp ASC;", conn);
 				command.Parameters.AddWithValue("@tickerId", tickerId);
 				command.Parameters.AddWithValue("@timespanId", timespanId);
+				command.Parameters.AddWithValue("@statusId", 1);
 
 
 				using (SqlDataReader reader = command.ExecuteReader()) {
