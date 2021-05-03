@@ -29,7 +29,7 @@ namespace stonks_api {
 			services.AddCors(options => {
 				options.AddPolicy("default",
 					builder => {
-						builder.WithOrigins("http://localhost:3000", "http://api.stonks.mpadgett.net")
+						builder.WithOrigins("http://localhost:3000", "http://api.stonks.mpadgett.net", "http://stonks.mpadgett.net")
 						.AllowAnyHeader()
 						.AllowAnyMethod();
 					});
